@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathis Vitet — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#f0ece6; --warm:#faf8f5; --bg:#e8e4de;
+  --br:#8b6551; --brl:#c4a08a; --brd:#5c3d2e;
+  --tx:#2d2420; --txl:#7a6259;
+  --green:#4a7c59; --red:#8b4444; --blue:#4a6b8a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(240,236,230,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(139,101,81,.12)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;letter-spacing:.2em;color:var(--brd);text-transform:uppercase;cursor:pointer}
+.navul{display:flex;gap:2rem;list-style:none}
+.navul a{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txl);text-decoration:none;transition:color .2s}
+.navul a:hover{color:var(--br)}
+
+/* PAGES — chacune est un écran full-height */
+.page{display:none;min-height:100vh;padding-top:70px}
+.page.active{display:block}
+
+/* CENTER helper */
+.vcenter{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center}
+
+/* WRAP */
+.wrap{max-width:1260px;margin:0 auto;padding:4rem 5vw 5rem}
+
+/* TYPO */
+.lbl{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:var(--br);margin-bottom:.7rem}
+.htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4.5rem);font-weight:300;line-height:1.05;color:var(--brd);margin-bottom:2.5rem}
+.htitle em{font-style:italic;color:var(--br)}
+
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 2rem;border:1px solid var(--br);color:var(--br);background:transparent;font-family:'Outfit',sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:var(--br);color:#fff}
+
+/* BACK */
+.back{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.4rem;font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;color:var(--br);cursor:pointer;border:none;background:none;font-family:'Outfit',sans-serif}
+.back:hover{text-decoration:underline}
+
+/* BREADCRUMB */
+.bc{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--txl)}
+.bc-tag{background:var(--br);color:#fff;padding:.18rem .65rem;font-size:.64rem}
+.bc-sep{color:var(--brl)}
+
+/* ── PAGE 1 HERO ── */
+#p1{background:var(--bg)}
+.hero-ghost{position:absolute;font-family:'Cormorant Garamond',serif;font-size:clamp(7rem,17vw,20rem);font-weight:600;color:rgba(139,101,81,.06);user-select:none;pointer-events:none;text-align:center;white-space:nowrap}
+.hero-ghost.top{top:3%;left:50%;transform:translateX(-50%)}
+.hero-ghost.bot{bottom:3%;left:50%;transform:translateX(-50%)}
+.hero-box{position:relative;text-align:center;z-index:1}
+.hero-pre{font-size:.74rem;letter-spacing:.3em;color:var(--br);text-transform:uppercase;margin-bottom:1.4rem}
+.hero-script{font-family:'Pinyon Script',cursive;font-size:clamp(3rem,8vw,6.5rem);color:var(--br);display:block}
+.hero-yr{font-family:'Cormorant Garamond',serif;font-size:.87rem;letter-spacing:.38em;color:var(--txl);margin-top:1.8rem;margin-bottom:2.8rem}
+
+/* ── PAGE 2 PROFIL ── */
+#p2{background:var(--warm)}
+.grid2{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+.ptxt{font-size:.92rem;line-height:1.85;color:var(--txl);margin-bottom:1.2rem}
+.ptxt strong{color:var(--brd);font-weight:500}
+.qlist{display:flex;flex-direction:column;gap:.85rem;margin-top:1.7rem}
+.qi{display:flex;gap:1rem;padding:1.1rem 1.4rem;background:var(--cream);border-left:2px solid var(--brl)}
+.qi-l{font-size:.76rem;font-weight:600;letter-spacing:.1em;color:var(--br);text-transform:uppercase;min-width:85px}
+.qi-t{font-size:.83rem;color:var(--txl);line-height:1.6}
+.stbl{background:var(--cream);padding:1.8rem}
+.stbl h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--brd);margin-bottom:1.3rem}
+.srow{display:grid;grid-template-columns:1fr 1.5fr;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(139,101,81,.12);font-size:.82rem}
+.srow:last-child{border:none}
+.srow-n{color:var(--br);font-weight:500}
+.srow-e{color:var(--txl);line-height:1.5}
+
+/* ── PAGE 3 POURQUOI ── */
+#p3{background:var(--bg)}
+.grid2b{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.wtxt{font-size:.91rem;line-height:1.85;color:var(--txl);margin-bottom:1.1rem}
+.wtxt strong{color:var(--brd)}
+.pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.7rem}
+.pill{padding:.43rem 1.1rem;border:1px solid var(--brl);color:var(--br);font-size:.75rem;letter-spacing:.1em}
+.rbox{background:var(--warm);padding:1.8rem;border-top:2px solid var(--brl);margin-bottom:1.5rem}
+.rbox h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--brd);margin-bottom:1rem}
+.ri{display:flex;gap:.7rem;align-items:center;padding:.6rem 0;border-bottom:1px solid rgba(139,101,81,.1);font-size:.82rem;color:var(--txl)}
+.quote-box{padding:1.4rem;background:var(--warm);border-left:3px solid var(--br)}
+.quote-box p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;color:var(--brd);font-style:italic;line-height:1.55}
+
+/* ── PAGE 4 CHOIX BUT ── */
+#p4{background:var(--bg)}
+.but-ghost{position:absolute;font-family:'Cormorant Garamond',serif;font-size:clamp(10rem,26vw,34rem);font-weight:600;color:rgba(139,101,81,.04);user-select:none;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
+.but-center{position:relative;z-index:1;text-align:center;width:100%;max-width:950px;padding:0 5vw}
+.but-sub{font-size:.84rem;color:var(--txl);margin-bottom:3rem}
+.but-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;text-align:left}
+.bcard{position:relative;overflow:hidden;padding:2.6rem 2.3rem;border:1px solid rgba(139,101,81,.18);background:var(--warm);cursor:pointer;transition:transform .28s,box-shadow .28s}
+.bcard:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(92,61,46,.13)}
+.bcard-fill{position:absolute;inset:0;background:var(--brd);transform:translateY(102%);transition:transform .4s cubic-bezier(.76,0,.24,1);z-index:0;pointer-events:none}
+.bcard:hover .bcard-fill{transform:translateY(0)}
+.bcard > *:not(.bcard-fill){position:relative;z-index:1}
+.bcard-n{font-family:'Cormorant Garamond',serif;font-size:4.5rem;font-weight:300;line-height:1;color:rgba(139,101,81,.1);margin-bottom:.2rem;transition:color .35s}
+.bcard-t{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:300;color:var(--brd);margin-bottom:.3rem;transition:color .35s}
+.bcard-y{font-size:.68rem;letter-spacing:.23em;text-transform:uppercase;color:var(--br);margin-bottom:1rem;transition:color .35s}
+.bcard-badge{display:inline-block;padding:.18rem .7rem;background:var(--br);color:#fff;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;transition:background .35s}
+.bcard-div{width:34px;height:1px;background:var(--brl);margin-bottom:1rem;transition:background .35s}
+.bcard-desc{font-size:.82rem;color:var(--txl);line-height:1.7;margin-bottom:1rem;transition:color .35s}
+.bcard-ul{list-style:none}
+.bcard-li{font-size:.75rem;color:var(--txl);display:flex;gap:.5rem;padding:.22rem 0;transition:color .35s}
+.bcard-li::before{content:'→';color:var(--brl);flex-shrink:0;transition:color .35s}
+.bcard-arr{position:absolute;bottom:1.7rem;right:1.7rem;font-size:1.3rem;color:var(--brl);transition:all .3s}
+.bcard:hover .bcard-n,.bcard:hover .bcard-t,.bcard:hover .bcard-y,.bcard:hover .bcard-desc,.bcard:hover .bcard-arr{color:rgba(255,255,255,.9)}
+.bcard:hover .bcard-badge{background:rgba(255,255,255,.2)}
+.bcard:hover .bcard-div{background:rgba(255,255,255,.22)}
+.bcard:hover .bcard-li{color:rgba(255,255,255,.75)}
+.bcard:hover .bcard-li::before{color:rgba(255,255,255,.4)}
+.bcard:hover .bcard-arr{transform:translate(4px,-4px)}
+
+/* ── PAGE 5 COMPÉTENCES ── */
+#p5{background:var(--warm)}
+.intro{background:var(--cream);padding:1.3rem 1.7rem;border-left:3px solid var(--br);margin-bottom:2.5rem;font-size:.87rem;color:var(--txl);line-height:1.7}
+.intro strong{color:var(--brd)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem}
+.cbub{position:relative;overflow:hidden;padding:1.8rem;border:1px solid rgba(139,101,81,.18);background:var(--warm);cursor:pointer}
+.cbub-fill{position:absolute;inset:0;background:var(--br);transform:translateY(102%);transition:transform .38s cubic-bezier(.76,0,.24,1);z-index:0;pointer-events:none}
+.cbub:hover .cbub-fill{transform:translateY(0)}
+.cbub > *:not(.cbub-fill){position:relative;z-index:1}
+.cbub-n{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;color:rgba(139,101,81,.18);line-height:1;margin-bottom:.4rem;transition:color .3s}
+.cbub-t{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--brd);margin-bottom:.4rem;transition:color .3s}
+.cbub-d{font-size:.79rem;color:var(--txl);line-height:1.5;transition:color .3s}
+.cbub-s{font-size:.69rem;color:var(--brl);letter-spacing:.1em;margin-top:.7rem;transition:color .3s}
+.cbub-arr{position:absolute;top:1.3rem;right:1.3rem;font-size:1.1rem;color:var(--brl);transition:all .3s}
+.cbub:hover .cbub-n,.cbub:hover .cbub-t,.cbub:hover .cbub-d,.cbub:hover .cbub-s,.cbub:hover .cbub-arr{color:rgba(255,255,255,.9)}
+.cbub:hover .cbub-arr{transform:translate(4px,-4px)}
+
+/* ── PAGE 6 PROJETS ── */
+#p6{background:var(--bg)}
+.plist{display:flex;flex-direction:column;gap:.85rem}
+.prow{display:flex;align-items:center;justify-content:space-between;padding:1.3rem 1.7rem;background:var(--warm);border-left:3px solid var(--brl);cursor:pointer;transition:all .22s}
+.prow:hover{border-left-color:var(--br);background:var(--cream);transform:translateX(5px)}
+.prow-tag{font-size:.67rem;letter-spacing:.18em;text-transform:uppercase;color:var(--br);margin-bottom:.32rem}
+.prow-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--brd);margin-bottom:.32rem}
+.prow-tools{display:flex;flex-wrap:wrap;gap:.33rem}
+.ttag{padding:.16rem .5rem;font-size:.67rem;background:var(--cream);color:var(--br);border:1px solid rgba(139,101,81,.26)}
+.prow-arr{font-size:1.25rem;color:var(--brl);transition:transform .22s;flex-shrink:0;margin-left:.8rem}
+.prow:hover .prow-arr{transform:translateX(6px)}
+.emptybox{padding:2.5rem;background:var(--warm);border-left:3px solid rgba(139,101,81,.2);text-align:center}
+.emptybox h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--brd);margin-bottom:.5rem}
+.emptybox p{font-size:.82rem;color:var(--txl)}
+
+/* ── PAGE 7 DÉTAIL SAÉ ── */
+#p7{background:var(--warm)}
+.saehdr{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:2.5rem;align-items:start}
+.saetit{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,4vw,2.9rem);font-weight:300;color:var(--brd);line-height:1.1;margin-bottom:.8rem}
+.saetit em{font-style:italic;color:var(--br)}
+.saetools{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.saesum{font-size:.87rem;line-height:1.8;color:var(--txl)}
+.presbox{background:var(--cream);padding:1.7rem;border-top:3px solid var(--br);margin-bottom:2.5rem}
+.presbox h4{font-family:'Cormorant Garamond',serif;font-size:1.12rem;color:var(--brd);margin-bottom:.85rem}
+.prestxt{font-size:.84rem;color:var(--txl);line-height:1.8}
+.prestxt p{margin-bottom:.5rem}
+.sae-link{display:inline-flex;align-items:center;gap:.45rem;margin-top:.75rem;font-size:.77rem;color:var(--br);text-decoration:none;border-bottom:1px solid var(--brl);padding-bottom:2px}
+.sae-link:hover{color:var(--brd)}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-bottom:2.5rem}
+.bcol{padding:1.55rem;border-top:3px solid}
+.bcol.p{background:#f4f8f5;border-color:var(--green)}
+.bcol.n{background:#fdf5f5;border-color:var(--red)}
+.bcol.r{background:#f3f6fa;border-color:var(--blue)}
+.bico{font-size:1.25rem;margin-bottom:.65rem}
+.btit{font-family:'Cormorant Garamond',serif;font-size:1.08rem;margin-bottom:.85rem;font-weight:400}
+.bcol.p .btit{color:var(--green)} .bcol.n .btit{color:var(--red)} .bcol.r .btit{color:var(--blue)}
+.bul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.bul li{font-size:.8rem;color:var(--txl);line-height:1.55;padding-left:1.1rem;position:relative}
+.bul li::before{content:'—';position:absolute;left:0}
+.bcol.p .bul li::before{color:var(--green)} .bcol.n .bul li::before{color:var(--red)} .bcol.r .bul li::before{color:var(--blue)}
+
+/* ── PAGE 8 FIERTÉ ── */
+#p8{background:var(--cream)}
+.pride-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.pc{padding:2.2rem;background:var(--warm);border-bottom:2px solid var(--brl)}
+.pc-ico{font-size:1.8rem;margin-bottom:.85rem}
+.pc-t{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--brd);margin-bottom:.85rem}
+.pc-txt{font-size:.84rem;color:var(--txl);line-height:1.75}
+.pc-items{margin-top:.85rem;display:flex;flex-direction:column;gap:.42rem}
+.pc-item{display:flex;gap:.5rem;font-size:.82rem;color:var(--txl)}
+.pc-item::before{content:'→';color:var(--br);flex-shrink:0}
+
+/* ── PAGE 9 OBJECTIFS ── */
+#p9{background:var(--warm)}
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+.oc{padding:2.2rem;position:relative}
+.oc::after{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--brl)}
+.oc:nth-child(1)::after{background:var(--br)}
+.oc:nth-child(3)::after{background:rgba(139,101,81,.3)}
+.oc-n{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;color:rgba(139,101,81,.1);line-height:1;margin-bottom:.3rem}
+.oc-p{font-size:.68rem;letter-spacing:.19em;text-transform:uppercase;color:var(--br);margin-bottom:.6rem}
+.oc-t{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--brd);margin-bottom:.85rem}
+.ol{list-style:none}
+.ol li{font-size:.82rem;color:var(--txl);line-height:1.6;padding:.43rem 0;border-bottom:1px solid rgba(139,101,81,.1);display:flex;gap:.5rem}
+.ol li::before{content:'—';color:var(--brl);flex-shrink:0}
+
+/* ── PAGE 10 CONTACT ── */
+#p10{background:var(--brd);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ct-big{font-family:'Pinyon Script',cursive;font-size:clamp(3.5rem,9vw,8rem);color:rgba(255,255,255,.08);line-height:.9;margin-bottom:-1.2rem;pointer-events:none}
+.ct-t{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,4vw,3.2rem);font-weight:300;color:var(--cream);margin-bottom:2.5rem}
+.ct-items{display:flex;gap:3.5rem;justify-content:center;margin-bottom:3rem}
+.ct-lbl{font-size:.67rem;letter-spacing:.28em;text-transform:uppercase;color:var(--brl);margin-bottom:.4rem}
+.ct-val{font-size:1rem;color:var(--cream);font-weight:300}
+.ct-val a{color:var(--cream);text-decoration:none}
+.ct-val a:hover{color:var(--brl)}
+.ct-div{width:46px;height:1px;background:rgba(255,255,255,.17);margin:2rem auto}
+.ct-foot{font-size:.7rem;letter-spacing:.19em;color:rgba(255,255,255,.2);text-transform:uppercase}
+
+/* INDICATEUR */
+#DOTS{position:fixed;right:1.7rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.6rem;z-index:999}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(139,101,81,.28);cursor:pointer;transition:all .25s}
+.dot.on{background:var(--br);transform:scale(1.6)}
+
+/* RESPONSIVE */
+@media(max-width:880px){
+  .grid2,.grid2b,.but-cards,.cgrid,.saehdr,.bgrid,.pride-grid,.ogrid{grid-template-columns:1fr}
+  .navul{display:none}
+  .ct-items{flex-direction:column;gap:1.4rem}
+  #DOTS{display:none}
+  .wrap{padding:2.5rem 1.5rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="show('p1')">Mathis Vitet</div>
+  <ul class="navul">
+    <li><a href="#" onclick="show('p1');return false">Accueil</a></li>
+    <li><a href="#" onclick="show('p2');return false">Profil</a></li>
+    <li><a href="#" onclick="show('p3');return false">Pourquoi SD</a></li>
+    <li><a href="#" onclick="show('p4');return false">Projets</a></li>
+    <li><a href="#" onclick="show('p8');return false">Fierté</a></li>
+    <li><a href="#" onclick="show('p9');return false">Objectifs</a></li>
+    <li><a href="#" onclick="show('p10');return false">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- INDICATEUR -->
+<div id="DOTS"></div>
+
+<!-- ═══════════════════════════════════
+  PAGE 1 — HERO
+═══════════════════════════════════ -->
+<div class="page active" id="p1">
+  <div class="vcenter" style="position:relative;overflow:hidden">
+    <div class="hero-ghost top">MATHIS</div>
+    <div class="hero-ghost bot">VITET</div>
+    <div class="hero-box">
+      <div class="hero-pre">Portfolio · BUT Science des Données</div>
+      <span class="hero-script">Mathis Vitet</span>
+      <div class="hero-yr">2024 / 2025</div>
+      <button class="btn" onclick="show('p2')">Découvrir &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 2 — PRÉSENTATION
+═══════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="wrap">
+    <div class="lbl">01 — Qui suis-je ?</div>
+    <h2 class="htitle">Présentation<br><em>personnelle</em></h2>
+    <div class="grid2">
+      <div>
+        <p class="ptxt">Je suis étudiant en première année de <strong>BUT Science des Données</strong> à l'Université Sorbonne Paris Nord. Cette formation m'a attiré pour son équilibre entre mathématiques, informatique, analyse statistique et ouverture vers les enjeux du monde réel.</p>
+        <p class="ptxt">J'aime manipuler des bases de données, écrire des requêtes SQL, créer des visualisations claires et explorer R ou Python. Je souhaite devenir <strong>data analyst ou data scientist</strong> dans un domaine qui a du sens.</p>
+        <div class="qlist">
+          <div class="qi"><div class="qi-l">Curieux</div><div class="qi-t">Je vais souvent au-delà du cours, notamment en machine learning Python par autodidaxie.</div></div>
+          <div class="qi"><div class="qi-l">Autonome</div><div class="qi-t">Capable de gérer seul des projets complexes, comme l'analyse complète des données PM2.5.</div></div>
+          <div class="qi"><div class="qi-l">Rigoureux</div><div class="qi-t">Attention aux détails dans les formules statistiques et les scripts, relecture systématique.</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="stbl">
+          <h3>Mes compétences techniques</h3>
+          <div class="srow"><div class="srow-n">→ Programmation en R</div><div class="srow-e">Graphiques sur la qualité de l'air en Île-de-France</div></div>
+          <div class="srow"><div class="srow-n">→ SQL</div><div class="srow-e">Requêtes pour analyser des exportations bas carbone</div></div>
+          <div class="srow"><div class="srow-n">→ Analyse statistique</div><div class="srow-e">Estimateurs et intervalles de confiance en R</div></div>
+          <div class="srow"><div class="srow-n">→ Visualisation</div><div class="srow-e">Rapport pollution PM2.5 — storytelling clair</div></div>
+          <div class="srow"><div class="srow-n">→ Excel / Power Query</div><div class="srow-e">Tableau de bord interactif pour la communication IUT</div></div>
+          <div class="srow"><div class="srow-n">→ Veille tech</div><div class="srow-e">DataCamp, StatQuest, Towards Data Science</div></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;text-align:center">
+      <button class="btn" onclick="show('p3')">Pourquoi la Science des Données ? &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 3 — POURQUOI SD
+═══════════════════════════════════ -->
+<div class="page" id="p3">
+  <div class="wrap">
+    <div class="lbl">02 — Motivation</div>
+    <h2 class="htitle">Pourquoi la<br><em>Science des Données ?</em></h2>
+    <div class="grid2b">
+      <div>
+        <p class="wtxt">La science des données m'attire car elle se trouve à l'<strong>intersection entre mathématiques, informatique et réflexion stratégique</strong>. Elle allie rigueur et créativité pour transformer des chiffres en connaissances utiles.</p>
+        <p class="wtxt">Aujourd'hui, la donnée est au cœur de tous les secteurs — santé, environnement, marketing, transports — et c'est précisément cette <strong>transversalité</strong> qui me motive.</p>
+        <p class="wtxt">J'ai découvert la data science en explorant des vidéos et articles sur l'IA et les statistiques. Très vite, j'ai voulu comprendre ce qu'il y avait <em>"derrière les algorithmes"</em>.</p>
+        <div class="pills">
+          <div class="pill">R & Python</div><div class="pill">SQL</div><div class="pill">Tableau</div>
+          <div class="pill">Machine Learning</div><div class="pill">Environnement</div><div class="pill">Santé publique</div>
+        </div>
+      </div>
+      <div>
+        <div class="rbox">
+          <h4>Veille technologique</h4>
+          <div class="ri"><span>📘</span>Towards Data Science — blog Medium</div>
+          <div class="ri"><span>📺</span>StatQuest — concepts statistiques YouTube</div>
+          <div class="ri"><span>📊</span>DataCamp & Kaggle — tutoriels interactifs</div>
+          <div class="ri"><span>📰</span>Sciences et Avenir / Futura Sciences</div>
+        </div>
+        <div class="quote-box">
+          <p>"La science des données est pour moi bien plus qu'une discipline : c'est un outil puissant pour mieux comprendre le monde et agir avec pertinence."</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;text-align:center">
+      <button class="btn" onclick="show('p4')">Voir mes projets SAÉ &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 4 — CHOIX BUT
+═══════════════════════════════════ -->
+<div class="page" id="p4">
+  <div class="vcenter" style="position:relative;overflow:hidden">
+    <div class="but-ghost">BUT</div>
+    <div class="but-center">
+      <div class="lbl" style="display:block;margin-bottom:.7rem">03 — Projets universitaires</div>
+      <h2 class="htitle">Choisissez votre <em>année</em></h2>
+      <p class="but-sub">Sélectionnez une année pour explorer les compétences et les SAÉ associées</p>
+      <div class="but-cards">
+
+        <div class="bcard" onclick="openBUT(1)">
+          <div class="bcard-fill"></div>
+          <div class="bcard-n">1</div>
+          <div class="bcard-t">BUT 1</div>
+          <div class="bcard-y">2024 — 2025</div>
+          <div class="bcard-badge">✦ En cours</div>
+          <div class="bcard-div"></div>
+          <p class="bcard-desc">Première année — découverte des fondamentaux à travers 4 compétences cœur de métier.</p>
+          <ul class="bcard-ul">
+            <li class="bcard-li">4 compétences — Analyser, Traiter, Valoriser, Modéliser</li>
+            <li class="bcard-li">5 SAÉ réalisées sur des cas réels</li>
+            <li class="bcard-li">PostgreSQL · SQL · Excel · R · DataViz</li>
+            <li class="bcard-li">Challenge national DataViz BUT SD 2025</li>
+          </ul>
+          <div class="bcard-arr">↗</div>
+        </div>
+
+        <div class="bcard" onclick="openBUT(2)">
+          <div class="bcard-fill"></div>
+          <div class="bcard-n">2</div>
+          <div class="bcard-t">BUT 2</div>
+          <div class="bcard-y">2025 — 2026</div>
+          <div class="bcard-div"></div>
+          <p class="bcard-desc">Deuxième année — approfondissement des compétences et mise en pratique en entreprise.</p>
+          <ul class="bcard-ul">
+            <li class="bcard-li">4 compétences approfondies</li>
+            <li class="bcard-li">Stage ou alternance en entreprise</li>
+            <li class="bcard-li">Python · Machine Learning · Power BI · Tableau</li>
+            <li class="bcard-li">Projets de plus grande envergure</li>
+          </ul>
+          <div class="bcard-arr">↗</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 5 — COMPÉTENCES
+═══════════════════════════════════ -->
+<div class="page" id="p5">
+  <div class="wrap">
+    <button class="back" onclick="show('p4')">← Retour au choix d'année</button>
+    <div class="bc">
+      <span class="bc-tag" id="c5but">BUT 1</span>
+      <span class="bc-sep">/</span>
+      <span>Compétences</span>
+    </div>
+    <div class="lbl" id="c5lbl">BUT 1 — 2024 / 2025</div>
+    <h2 class="htitle" id="c5tit">Les 4 compétences<br><em>BUT 1</em></h2>
+    <div class="intro">
+      <strong>SAÉ — Situation d'Apprentissage et d'Évaluation</strong><br>
+      Projets concrets rattachés à des <strong>compétences cœur de métier</strong>. Cliquez sur une compétence pour voir les projets associés.
+    </div>
+    <div class="cgrid" id="CGRID"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 6 — LISTE PROJETS
+═══════════════════════════════════ -->
+<div class="page" id="p6">
+  <div class="wrap">
+    <button class="back" onclick="show('p5')">← Retour aux compétences</button>
+    <div class="bc">
+      <span class="bc-tag" id="c6but">BUT 1</span>
+      <span class="bc-sep">/</span>
+      <span id="c6comp">Compétence</span>
+    </div>
+    <div class="lbl" id="c6lbl">Compétence</div>
+    <h2 class="htitle" id="c6tit">Titre</h2>
+    <div class="plist" id="PLIST"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 7 — DÉTAIL SAÉ
+═══════════════════════════════════ -->
+<div class="page" id="p7">
+  <div class="wrap">
+    <button class="back" onclick="show('p6')">← Retour aux projets</button>
+    <div class="bc">
+      <span class="bc-tag" id="c7but">BUT 1</span>
+      <span class="bc-sep">/</span>
+      <span id="c7comp">Compétence</span>
+      <span class="bc-sep">/</span>
+      <span id="c7sae">SAÉ</span>
+    </div>
+    <div class="saehdr">
+      <div>
+        <div class="lbl" id="s7tag">SAÉ</div>
+        <h2 class="saetit" id="s7tit">Titre</h2>
+        <div class="saetools" id="s7tools"></div>
+      </div>
+      <p class="saesum" id="s7sum"></p>
+    </div>
+    <div class="presbox" id="s7presbox">
+      <h4>📋 Présentation finale</h4>
+      <div class="prestxt" id="s7pres"></div>
+    </div>
+    <div class="bgrid">
+      <div class="bcol p"><div class="bico">✅</div><div class="btit">Points forts</div><ul class="bul" id="BP"></ul></div>
+      <div class="bcol n"><div class="bico">⚠️</div><div class="btit">Points faibles</div><ul class="bul" id="BN"></ul></div>
+      <div class="bcol r"><div class="bico">🎯</div><div class="btit">Marge de progression</div><ul class="bul" id="BR"></ul></div>
+    </div>
+    <div style="text-align:center">
+      <button class="btn" id="NEXTBTN" style="display:none" onclick="">Projet suivant &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 8 — FIERTÉ
+═══════════════════════════════════ -->
+<div class="page" id="p8">
+  <div class="wrap">
+    <div class="lbl">04 — Bilan</div>
+    <h2 class="htitle">Ce dont je suis<br><em>le plus fier</em></h2>
+    <div class="pride-grid">
+      <div class="pc">
+        <div class="pc-ico">📌</div>
+        <div class="pc-t">Le Challenge DataViz national</div>
+        <p class="pc-txt">Participer au Challenge national DataViz a été un véritable défi : très peu de temps pour comprendre les données, construire un message visuel, puis le défendre à l'oral devant un jury.</p>
+        <div class="pc-items">
+          <div class="pc-item">Collaborer efficacement en équipe sous pression</div>
+          <div class="pc-item">Produire une infographie claire sur la scolarisation des jeunes (INSEE)</div>
+          <div class="pc-item">Présenter à l'oral avec confiance malgré le stress</div>
+          <div class="pc-item">Une vraie victoire personnelle — inimaginable quelques mois plus tôt</div>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-ico">💻</div>
+        <div class="pc-t">Autonomie dans les projets techniques</div>
+        <p class="pc-txt">Je suis fier d'avoir progressé de façon autonome sur des compétences techniques complexes, en partant de zéro.</p>
+        <div class="pc-items">
+          <div class="pc-item">Écrire mes premières vraies requêtes SQL complexes avec jointures</div>
+          <div class="pc-item">Automatiser le traitement de fichiers clients en R</div>
+          <div class="pc-item">Concevoir un tableau de bord complet dans Excel avec Power Query</div>
+          <div class="pc-item">Ces projets m'ont prouvé que je pouvais m'autoformer et persévérer</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;text-align:center">
+      <button class="btn" onclick="show('p9')">Mes objectifs &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 9 — OBJECTIFS
+═══════════════════════════════════ -->
+<div class="page" id="p9">
+  <div class="wrap">
+    <div class="lbl">05 — Vision</div>
+    <h2 class="htitle">Mes<br><em>objectifs</em></h2>
+    <div class="ogrid">
+      <div class="oc">
+        <div class="oc-n">01</div>
+        <div class="oc-p">Court terme · BUT 2</div>
+        <div class="oc-t">Stage & alternance</div>
+        <ul class="ol">
+          <li>Trouver un stage dans une structure utilisant les données : collectivité, bio, santé, transport</li>
+          <li>Constituer un portfolio solide avec visualisations, code et réflexions</li>
+          <li>Approfondir Python, SQL, Tableau, Power BI</li>
+          <li>Commencer les bases en machine learning et API</li>
+          <li>Préparer lettres de motivation et entretiens</li>
+        </ul>
+      </div>
+      <div class="oc">
+        <div class="oc-n">02</div>
+        <div class="oc-p">Moyen terme · Post-BUT</div>
+        <div class="oc-t">Formation avancée</div>
+        <ul class="ol">
+          <li>Master Data Science, Statistique publique ou master spécialisé</li>
+          <li>Ou école d'ingénieur en admission parallèle (ENSAI, INSA, IMT Atlantique)</li>
+          <li>Renforcer le profil technique tout en se spécialisant</li>
+          <li>Opportunités : chargé d'études junior ou assistant data analyst</li>
+        </ul>
+      </div>
+      <div class="oc">
+        <div class="oc-n">03</div>
+        <div class="oc-p">Long terme · 10-15 ans</div>
+        <div class="oc-t">Impact & sens</div>
+        <ul class="ol">
+          <li>Travailler dans un domaine utilisant les données pour la société : santé, transition écologique</li>
+          <li>Métier : data analyst, data scientist ou chargé d'études statistiques</li>
+          <li>Combiner analyse, visualisation, communication et aide à la décision</li>
+          <li>Produire un impact réel grâce aux données</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:3rem;text-align:center">
+      <button class="btn" onclick="show('p10')">Me contacter &nbsp;→</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════
+  PAGE 10 — CONTACT
+═══════════════════════════════════ -->
+<div class="page" id="p10">
+  <div class="vcenter" style="flex-direction:column">
+    <div class="ct-big">Mathis</div>
+    <div class="ct-t">Prenons contact</div>
+    <div class="ct-items">
+      <div><div class="ct-lbl">E-mail</div><div class="ct-val"><a href="mailto:mathis.vitet95@gmail.com">mathis.vitet95@gmail.com</a></div></div>
+      <div><div class="ct-lbl">Mobile</div><div class="ct-val">07 69 18 26 41</div></div>
+      <div><div class="ct-lbl">Formation</div><div class="ct-val">BUT Science des Données</div></div>
+    </div>
+    <div class="ct-div"></div>
+    <div class="ct-foot">Université Sorbonne Paris Nord · 2024 / 2025</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+  JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+// ═══ DONNÉES ═══════════════════════════════════════
+
+var BUTS = {
+  1: {
+    lbl: 'BUT 1 — 2024 / 2025',
+    tit: 'Les 4 compétences<br><em>BUT 1</em>',
+    comps: [
+      { key:'analyser',  n:'01', nom:'Analyser',  tit:'Analyser les <em>données</em>',           desc:"Comprendre et questionner les données — identifier les tendances, anomalies et patterns pertinents.", saes:['s1','s3'], soon:false },
+      { key:'traiter',   n:'02', nom:'Traiter',   tit:'Traiter et <em>transformer</em>',          desc:"Nettoyer, transformer et structurer les données pour les rendre exploitables et fiables.",           saes:['s4','s1'], soon:false },
+      { key:'valoriser', n:'03', nom:'Valoriser', tit:'Valoriser par la <em>visualisation</em>',  desc:"Communiquer les résultats à travers des visualisations claires et des présentations impactantes.",   saes:['s5','s2'], soon:false },
+      { key:'modeliser', n:'04', nom:'Modéliser', tit:'Modéliser et <em>structurer</em>',         desc:"Construire des modèles statistiques et des bases de données pour structurer et prédire.",            saes:['s1','s4'], soon:false }
+    ]
+  },
+  2: {
+    lbl: 'BUT 2 — 2025 / 2026',
+    tit: 'Les 4 compétences<br><em>BUT 2</em>',
+    comps: [
+      { key:'analyser',  n:'01', nom:'Analyser',  tit:'Analyser les <em>données</em>',           desc:"Analyse avancée — modèles statistiques, détection d'anomalies, fouille de données.", saes:[], soon:true },
+      { key:'traiter',   n:'02', nom:'Traiter',   tit:'Traiter et <em>transformer</em>',          desc:"Pipelines automatisés, nettoyage à grande échelle, ETL et données manquantes.", saes:[], soon:true },
+      { key:'valoriser', n:'03', nom:'Valoriser', tit:'Valoriser par la <em>visualisation</em>',  desc:"Dashboards interactifs, storytelling data avancé avec Power BI et Tableau.", saes:[], soon:true },
+      { key:'modeliser', n:'04', nom:'Modéliser', tit:'Modéliser et <em>structurer</em>',         desc:"Machine learning supervisé et non supervisé, modèles prédictifs et déploiement.", saes:[], soon:true }
+    ]
+  }
+};
+
+var SAES = {
+  s1: {
+    tag:'SAÉ 1.01', nom:'Catastrophes climatiques <em>mondiales</em>', plain:'Catastrophes climatiques mondiales',
+    tools:['PostgreSQL','Metabase','SQL','Java'],
+    sum:"Dans cette SAÉ, nous avons travaillé sur une base de données sur les catastrophes climatiques mondiales. Après installation de PostgreSQL et Metabase, nous avons importé les données dans une base relationnelle et réalisé des requêtes SQL pertinentes pour créer des visualisations interprétant les tendances climatiques mondiales et régionales.",
+    pres:true,
+    presHTML:"<p>La présentation finale était un <strong>tableau de bord Metabase</strong> présentant les tendances climatiques mondiales : évolution du nombre de catastrophes par type, répartition géographique, et analyse des impacts humains sur plusieurs décennies.</p><p>Nous avons aussi présenté notre démarche SQL : requêtes progressives, jointures multi-tables et interprétation des résultats.</p>",
+    pos:['Maîtrise des requêtes SQL complexes avec jointures multiples (JOIN sur country, sub_region, region)','Approche progressive de formulation des requêtes — test étape par étape','Découverte de Metabase : outil de datavisualisation intuitif','Connexion entre compétences techniques et enjeux actuels (changement climatique)','Capacité à importer et structurer des données dans une base relationnelle réelle'],
+    neg:['Difficultés à modéliser les relations entre tables à plusieurs niveaux','Erreurs de regroupement et doublons dans certaines requêtes GROUP BY','Temps excessif à structurer les requêtes (ORDER BY, alias)','Lecture critique des résultats à améliorer','Blocages fréquents sans plan de débogage clair'],
+    prog:['Schématiser la base AVANT d\'écrire les requêtes','Utiliser des sous-requêtes et des vues pour améliorer la lisibilité du code SQL','S\'entraîner sur des bases variées : Kaggle, exercices SQL','Explorer les fonctionnalités avancées de Metabase : filtres dynamiques','Créer une fiche de bonnes pratiques SQL personnelle']
+  },
+  s2: {
+    tag:'SAÉ 1.02', nom:'Présentation orale en <em>anglais — PACA</em>', plain:'Présentation orale anglais — PACA',
+    tools:['Open Data','Poster numérique','Anglais professionnel','Travail d\'équipe'],
+    sum:"Dans cette SAÉ, nous avons effectué une recherche de données ouvertes sur la région PACA pour en extraire les caractéristiques économiques, démographiques et culturelles. Ce travail a abouti à une présentation orale en anglais appuyée par un poster numérique.",
+    pres:true,
+    presHTML:"<p>La présentation finale était un <strong>poster numérique</strong> sur la région PACA : économie, industries clés (tourisme, parfumerie de Grasse, Sophia Antipolis), agriculture, défis environnementaux et attractivité.</p><p>Défendu à l'oral en anglais devant l'équipe enseignante. Groupe : Boughrara Mohamed, MIMD Sami, Habbad Mouad, Vitet Mathis.</p>",
+    pos:['Progression en expression orale en anglais','Capacité à sélectionner l\'information pertinente dans un grand volume de données','Compétences en travail d\'équipe : répartition des tâches, harmonisation du discours','Sensibilisation à la vulgarisation selon le public','Conception d\'un poster visuel clair et professionnel'],
+    neg:['Difficultés sur certains termes techniques en anglais','Stress lors de la soutenance — réponses aux questions peu fluides','Design du poster perfectible : hiérarchie visuelle à améliorer','Manque de vocabulaire spécialisé en data science anglophone','Organisation du travail en groupe sous contrainte de temps'],
+    prog:['Renforcer le vocabulaire anglais spécialisé via Quizlet et presse économique','S\'entraîner à l\'oral : exposés courts, auto-enregistrement','Développer une routine de veille anglophone sur la data science','Améliorer les compétences en design de poster','Apprendre à gérer le stress en soutenance : répétitions']
+  },
+  s3: {
+    tag:'SAÉ 1.03', nom:'Coopérative Bio <em>d\'Île-de-France</em>', plain:"Coopérative Bio d'Île-de-France",
+    tools:['Recherche documentaire','Analyse économique','Excel','Circuits courts'],
+    sum:"Dans cette SAÉ en lien avec l'économie, nous avons étudié la Coopérative Bio d'Île-de-France. Le but était d'analyser son modèle économique et ses performances à partir de données réelles, pour évaluer si elle répond aux enjeux sociaux, environnementaux et économiques à travers les circuits courts.",
+    pres:true,
+    presHTML:"<p>La présentation finale était un <strong>rapport analytique complet</strong> sur la Coopérative Bio IDF, accompagné d'une vidéo de présentation couvrant contexte, performances économiques, limites et propositions d'amélioration.</p><a class='sae-link' href='https://youtu.be/jW6kqLzzwiQU' target='_blank'>▶ Voir la vidéo de présentation →</a>",
+    pos:['Analyse d\'une organisation réelle à partir de sources diverses','Lien concret entre théorie économique et réalité de terrain d\'une coopérative bio','Renforcement des compétences en recherche documentaire et synthèse','Meilleure compréhension du modèle coopératif et des circuits courts en IDF','Développement de l\'analyse critique : limites ET perspectives'],
+    neg:['Difficultés à structurer les idées dans les parties longues du rapport','Analyse des indicateurs financiers peu rigoureuse','Manque de représentations visuelles — rapport trop textuel','Organisation logique des sections à améliorer','Pistes d\'amélioration proposées trop générales'],
+    prog:['Structurer des rapports analytiques : plans en 3 parties','Approfondir les notions d\'analyse économique : ratios, bilans','Créer des tableaux de bord dans Excel pour visualiser les indicateurs','Méthode de veille express pour s\'adapter à un nouveau domaine','Formuler des propositions concrètes et chiffrées']
+  },
+  s4: {
+    tag:'SAÉ 1.04', nom:'Tableau de bord <em>IUT — Excel</em>', plain:'Tableau de bord IUT — Excel',
+    tools:['Excel','Power Query','Power Pivot','TCD','DAX'],
+    sum:"Dans cette SAÉ, nous avons construit un tableau de bord interactif dans Excel à partir d'un fichier d'étudiants anonymisé pour aider le service communication de l'IUT à comprendre le profil des étudiants par lycée, sexe, baccalauréat et bourse.",
+    pres:true,
+    presHTML:"<p>La présentation finale était un <strong>tableau de bord Excel complet et interactif</strong> livré au service communication de l'IUT : candidatures par lycée et département, répartition par sexe et formation, mentions et spécialités des bacs, répartition des boursiers.</p><p>Chaque graphique était couplé à des <strong>segments et filtres dynamiques</strong> via Power Query et tableaux croisés dynamiques.</p>",
+    pos:['Maîtrise de Power Query pour nettoyer et structurer les données automatiquement','Construction de tableaux croisés dynamiques clairs avec filtres pertinents','Travail propre : feuilles renommées, champs organisés, esthétique soignée','Capacité à créer un outil exploitable par un service non-technique','Gestion du pipeline complet : import brut → dashboard final'],
+    neg:['Difficultés sur la logique des relations entre tables','Erreurs techniques récurrentes : types de données, formules non actualisées','Tendance à se fier à la première impression visuelle sans tout vérifier','Utilisation limitée de Power Pivot et DAX','Manque de rigueur dans la vérification des résultats avant livraison'],
+    prog:['Maîtriser les relations entre tables dans Power Pivot et les colonnes calculées DAX','Créer des tableaux de bord plus évolués : graphiques combinés, menus déroulants','Apprendre à créer des cartes interactives dans Excel','Élaborer une fiche de bonnes pratiques Excel personnelle','Tester systématiquement toutes les combinaisons de filtres']
+  },
+  s5: {
+    tag:'SAÉ 2.04 ★', nom:'Challenge national <em>DataViz</em>', plain:'Challenge national DataViz',
+    tools:['DataViz','Infographie','INSEE','Présentation orale','Travail d\'équipe'],
+    sum:"Dans cette SAÉ, nous avons participé au Challenge national DataViz du 23 mai 2024. En groupe, nous avons travaillé sur des données INSEE sur la scolarisation des jeunes de 15 à 29 ans. L'objectif était de produire une infographie en une seule journée, puis de la défendre devant un jury en 5 minutes.",
+    pres:true,
+    presHTML:"<p>La présentation finale était une <strong>infographie complète sur la scolarisation des jeunes 15-29 ans en France</strong>, réalisée en une seule journée à partir de données INSEE. Elle analysait les disparités départementales, les évolutions temporelles et les inégalités territoriales.</p><p>Défendue lors d'une <strong>présentation orale de 5 minutes devant un jury</strong> dans le cadre du Challenge national BUT Science des Données 2025. Ce projet est celui dont je suis le plus fier cette année.</p>",
+    pos:['Structuration complète d\'un projet DataViz de A à Z en une seule journée','Réflexes de clarté visuelle acquis : couleurs, hiérarchie, légendes efficaces','Capacité à travailler sous pression dans un temps limité','Écoute active des retours du jury pour progresser','Collaboration efficace en équipe avec répartition claire des tâches'],
+    neg:['Analyse exploratoire initiale trop lente','Difficultés à évaluer la pertinence de certains graphiques','Prise de décisions collectives parfois trop longue','Manque de confiance pour proposer des idées visuelles originales','Visualisations peu adaptées aux différents publics'],
+    prog:['Construire des dataviz claires et efficaces en moins d\'une heure','Approfondir les outils : Tableau, Flourish, Power BI, Datawrapper','Étudier des exemples professionnels d\'infographies reconnues','Apprendre à adapter les visualisations aux différents publics','Identifier les 3 indicateurs clés en moins de 10 min']
+  }
+};
+
+// ═══ ÉTAT ═══════════════════════════════════════════
+var activeBUT  = 1;
+var activeComp = null;
+var PAGE_IDS   = ['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'];
+
+// ═══ DOTS ════════════════════════════════════════════
+var dotsEl = document.getElementById('DOTS');
+PAGE_IDS.forEach(function(id, i) {
+  var d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  (function(idx){ d.onclick = function(){ show(PAGE_IDS[idx]); }; })(i);
+  dotsEl.appendChild(d);
+});
+
+// ═══ NAVIGATION ══════════════════════════════════════
+// Fonction show : ultra-simple, pas de transition qui peut bloquer
+function show(id) {
+  // Cacher toutes les pages
+  PAGE_IDS.forEach(function(pid) {
+    document.getElementById(pid).classList.remove('active');
+  });
+  // Afficher la page demandée
+  document.getElementById(id).classList.add('active');
+  // Scroll en haut
+  document.getElementById(id).scrollTop = 0;
+  window.scrollTo(0, 0);
+  // Mettre à jour les dots
+  var idx = PAGE_IDS.indexOf(id);
+  document.querySelectorAll('.dot').forEach(function(d, i) {
+    d.classList.toggle('on', i === idx);
+  });
+}
+
+// ═══ OUVRIR UN BUT ═══════════════════════════════════
+function openBUT(num) {
+  activeBUT = num;
+  var data   = BUTS[num];
+
+  // Remplir page 5
+  document.getElementById('c5but').textContent = 'BUT ' + num;
+  document.getElementById('c5lbl').textContent  = data.lbl;
+  document.getElementById('c5tit').innerHTML    = data.tit;
+
+  // Générer les bulles de compétences
+  var grid = document.getElementById('CGRID');
+  grid.innerHTML = '';
+  data.comps.forEach(function(comp) {
+    var div = document.createElement('div');
+    div.className = 'cbub';
+    div.innerHTML =
+      '<div class="cbub-fill"></div>' +
+      '<div class="cbub-n">' + comp.n + '</div>' +
+      '<div class="cbub-t">' + comp.nom + '</div>' +
+      '<div class="cbub-d">' + comp.desc + '</div>' +
+      (comp.soon ? '<div class="cbub-s">À venir — 2025/2026</div>' : '') +
+      '<div class="cbub-arr">↗</div>';
+    // stocker la ref au comp dans une closure
+    (function(c){ div.onclick = function(){ openComp(c); }; })(comp);
+    grid.appendChild(div);
+  });
+
+  show('p5');
+}
+
+// ═══ OUVRIR UNE COMPÉTENCE ═══════════════════════════
+function openComp(comp) {
+  activeComp = comp;
+
+  document.getElementById('c6but').textContent  = 'BUT ' + activeBUT;
+  document.getElementById('c6comp').textContent = comp.nom;
+  document.getElementById('c6lbl').textContent  = comp.n + ' — ' + comp.nom;
+  document.getElementById('c6tit').innerHTML    = comp.tit;
+
+  var list = document.getElementById('PLIST');
+  list.innerHTML = '';
+
+  if (!comp.saes || comp.saes.length === 0) {
+    list.innerHTML =
+      '<div class="emptybox">' +
+        '<h3>Projets à venir</h3>' +
+        '<p>Les SAÉ du BUT 2 seront ajoutées au fil de l\'année 2025/2026.</p>' +
+      '</div>';
+  } else {
+    comp.saes.forEach(function(key) {
+      var s = SAES[key];
+      if (!s) return;
+      var row = document.createElement('div');
+      row.className = 'prow';
+      row.innerHTML =
+        '<div>' +
+          '<div class="prow-tag">'   + s.tag + '</div>' +
+          '<div class="prow-name">'  + s.nom + '</div>' +
+          '<div class="prow-tools">' + s.tools.map(function(t){ return '<span class="ttag">' + t + '</span>'; }).join('') + '</div>' +
+        '</div>' +
+        '<div class="prow-arr">→</div>';
+      (function(k){ row.onclick = function(){ openSAE(k); }; })(key);
+      list.appendChild(row);
+    });
+  }
+
+  show('p6');
+}
+
+// ═══ OUVRIR UNE SAÉ ══════════════════════════════════
+function openSAE(key) {
+  var s = SAES[key];
+  if (!s) { alert('SAÉ introuvable : ' + key); return; }
+
+  document.getElementById('c7but').textContent  = 'BUT ' + activeBUT;
+  document.getElementById('c7comp').textContent = activeComp ? activeComp.nom : '';
+  document.getElementById('c7sae').textContent  = s.plain;
+
+  document.getElementById('s7tag').textContent  = s.tag;
+  document.getElementById('s7tit').innerHTML    = s.nom;
+  document.getElementById('s7sum').textContent  = s.sum;
+  document.getElementById('s7tools').innerHTML  = s.tools.map(function(t){ return '<span class="ttag">' + t + '</span>'; }).join('');
+
+  var pb = document.getElementById('s7presbox');
+  if (s.pres) {
+    pb.style.display = 'block';
+    document.getElementById('s7pres').innerHTML = s.presHTML;
+  } else {
+    pb.style.display = 'none';
+  }
+
+  document.getElementById('BP').innerHTML = s.pos.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+  document.getElementById('BN').innerHTML = s.neg.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+  document.getElementById('BR').innerHTML = s.prog.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+
+  // Bouton suivant
+  var saes = activeComp ? activeComp.saes : [];
+  var idx  = saes.indexOf(key);
+  var btn  = document.getElementById('NEXTBTN');
+  if (saes[idx + 1]) {
+    btn.style.display = 'inline-flex';
+    var nextKey = saes[idx + 1];
+    btn.onclick = function(){ openSAE(nextKey); };
+  } else {
+    btn.style.display = 'none';
+  }
+
+  show('p7');
+}
+</script>
+</body>
+</html>
